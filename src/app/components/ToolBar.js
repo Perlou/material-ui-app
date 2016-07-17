@@ -30,16 +30,11 @@ export default class ToolbarSimple extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {
-			open: true
-		}
 		this.handleToggle = this.handleToggle.bind(this);
-	}		
+	}
 
-	handleToggle() {
-		this.setState({
-			open: !this.state.open
-		});
+	handleToggle (){
+		this.props.handleToggleNav();
 	}
 
 	render() {
@@ -47,7 +42,8 @@ export default class ToolbarSimple extends React.Component {
 			<Toolbar style={styles.main}>
 				<ToolbarGroup firstChild={true} float="left">
 					<IconButton>
-						<MoreVertIcon />
+						<MoreVertIcon
+							onTouchTap={this.handleToggle} />
 					</IconButton>
 				<ToolbarTitle text="Perlou" />
 				</ToolbarGroup>

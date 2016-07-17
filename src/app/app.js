@@ -5,43 +5,61 @@
 
 'use strict';
 
-import React from 'react';
+import React, {Component} from 'react';
 import {render} from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import Toolbar from './components/ToolBar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import LeftNav from ''
 
-
-import Drawer from 'material-ui/Drawer';
-import MenuItem from 'material-ui/MenuItem';
+import Toolbar from './components/ToolBar';
+import LeftNav from './components/LeftNav';
+import MainPan from './components/MainPan';
 
 injectTapEventPlugin();
 
-// const style = {
-//   margin: 12,
-// };
+class App extends Component {
 
+	constructor (props){
+		super(props);
+		this.state = {
+			leftNavOpen: false
+		};
+		this.handleToggleNav = this.handleToggleNav.bind(this);
+	}
 
+	handleToggleNav (){
+		this.setState({
+			leftNavOpen: !this.state.leftNavOpen
+		})
+	}
 
+	render (){
+	    return (
+	    	<MuiThemeProvider>
+	    		<div>
+				    <Toolbar 
+				    	handleToggleNav={this.handleToggleNav} />
+				    <LeftNav
+				    	leftNavOpen={this.state.leftNavOpen} />
+				    <MainPan />	 	
+		        </div>
+			</MuiThemeProvider>
+	    );		
+	}
+}
 
-let App = React.createClass({
-  render() {
-    return (
-    	<MuiThemeProvider>
-    		<div>
-			    <Toolbar />
-		        <Drawer open={true}>
-		          <MenuItem>Menu Item</MenuItem>
-		          <MenuItem>Menu Item 2</MenuItem>
-		        </Drawer>   	
-	        </div>
-		</MuiThemeProvider>
-    );
-  }
-});
-        // <LeftNav />
-        // <MainPan />
+// let App = React.createClass({
+//   render() {
+//     return (
+//     	<MuiThemeProvider>
+//     		<div>
+// 			    <Toolbar />
+// 			    <LeftNav open={this.state.leftNavOpen}/> 	
+// 	        </div>
+// 		</MuiThemeProvider>
+//     );
+//   }
+// });
+
 render(
 	<App/>,
 	document.getElementById('app')
